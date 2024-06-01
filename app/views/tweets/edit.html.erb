@@ -1,0 +1,64 @@
+<%= form_for @tweet do |f| %>
+    <div class="field">
+    <%= f.label :タイトル %>
+    <%= f.text_field :title, :size => 30 %>
+  </div>
+
+
+    <div class="field">
+    <%= f.label :場所 %>
+    <%= f.text_field :place, :size => 30 %>
+    </div>
+
+
+    <div class="field">
+    <%= f.label :機種 %>
+    <%= f.text_field :model, :size => 30 %>
+    </div>
+
+
+    <div class="field">
+    <%= f.label :航空会社 %>
+    <%= f.text_field :company, :size => 30 %>
+    </div>
+
+
+    <div class="field">
+    <%= f.label :事故年月日 %>
+    <%= f.date_field :date, :size => 30 %>
+    </div>
+
+
+  <div class="field">
+    <%= f.label :乗客・乗員  %>
+    <%= f.number_field :people, :size => 10 %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :説明  %>
+    <%= f.text_area :about, :size => "30x2" %>
+  </div>
+
+  <div class="field">
+  <%= f.label :image %>
+  <%= f.file_field :images, multiple: true %>
+  </div>
+
+  <div class="field">
+  <%= f.label :image2 %>
+  <%= f.file_field :image2 %>
+  </div>
+
+  <%= f.label :video %>
+  <%= f.file_field :video %>
+  </div>
+
+  <br>
+
+  <%= f.label :youtube_url %>
+  <%= f.text_field :youtube_url, :size => 140 %>
+
+
+  <%= f.submit "編集する" %>
+  <% end %>

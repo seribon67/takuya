@@ -1,0 +1,61 @@
+
+<h1>マイページ</h1>
+<p>名前 : <%= @user.name %></p>
+<p>メールアドレス : <%= @user.email %></p>
+<p>プロフィール : <%= @user.profile %></p>
+
+<% if current_user.id == @user.id %>
+  <%= link_to "編集する", edit_user_registration_path %>
+<% end %>
+
+<h2>ユーザーの投稿一覧</h2>
+<% @user.tweets.each do |t| %>
+  <%= t.title%>
+  <%= t.date %>
+  <%= t.place %>
+  <%= t.model %>
+  <%= t.company %>
+  <%= t.about %>
+  <%= t.people %>
+  <%= image_tag t.image_url, size: "250x200" if t.image? %>
+  <%= image_tag t.image2_url, size: "250x200" if t.image2? %>
+  <%=  video_tag t.video_url ,:controls => true if t.video?%>
+  <% unless t.youtube_url.blank? %>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <% end %>
+  <%= t.created_at %>
+  <%= link_to "詳細へ", tweet_path(t.id) %>
+  <% if user_signed_in? && current_user.id == t.user_id %>
+  <%= link_to "編集する", edit_tweet_path(t.id) %>
+  <%= link_to "削除する", tweet_path(t.id), method: :delete %>
+  <% end %>
+  <% end %>
+
+<!-- 以下はいいね機能を実装している場合-->
+<h2>ユーザーがいいねした投稿一覧</h2>
+<% @user.liked_tweets.each do |t| %>
+  <%= t.user.name %>
+  <%= t.user.email %>
+  <%= t.title%>
+  <%= t.date %>
+  <%= t.place %>
+  <%= t.model %>
+  <%= t.company %>
+  <%= t.about %>
+  <%= t.people %>
+  <%= image_tag t.image_url, size: "250x200" if t.image? %>
+  <%= image_tag t.image2_url, size: "250x200" if t.image2? %>
+  <%=  video_tag t.video_url ,:controls => true if t.video?%>
+  <% unless t.youtube_url.blank? %>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <% end %>
+  <%= t.created_at %>
+  <%= link_to "詳細へ", tweet_path(t.id) %>
+  <% if user_signed_in? && current_user.id == t.user_id %>
+  <%= link_to "編集する", edit_tweet_path(t.id) %>
+  <%= link_to "削除する", tweet_path(t.id), method: :delete %>
+  <% end %>
+  <% end %>
+<!-- ここまで-->
+
+<%= link_to "Tweet一覧に戻る", tweets_path %>

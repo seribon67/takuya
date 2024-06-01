@@ -1,0 +1,82 @@
+<h1>飛行機事故</h1>
+<h3>新規投稿ページ</h3>
+<%= form_for @tweet do |f| %>
+
+  <div class="field">
+    <%= f.label :タイトル %>
+    <%= f.text_field :title, :size => 30 %>
+  </div>
+
+
+    <div class="field">
+    <%= f.label :場所 %>
+    <%= f.text_field :place, :size => 30 %>
+    </div>
+
+
+    <div class="field">
+    <%= f.label :機種 %>
+    <%= f.text_field :model, :size => 30 %>
+    </div>
+
+
+    <div class="field">
+    <%= f.label :航空会社 %>
+    <%= f.text_field :company, :size => 30 %>
+    </div>
+
+
+    <div class="field">
+    <%= f.label :事故年月日 %>
+    <%= f.date_field :date, :size => 30 %>
+    </div>
+
+
+  <div class="field">
+    <%= f.label :乗客・乗員  %>
+    <%= f.number_field :people, :size => 10 %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :説明  %>
+    <%= f.text_area :about, :size => "30x2" %>
+  </div>
+
+  <div class="field">
+  <%= f.label :image %>
+  <%= f.file_field :image %>
+  </div>
+
+  <div class="field">
+  <%= f.label :image2 %>
+  <%= f.file_field :image2 %>
+  </div>
+
+  <div class="field">
+  <%= f.label :video %>
+  <%= f.file_field :video %>
+  </div>
+
+  <br>
+  <div class="field">
+  <%= f.label :youtube_url %>
+  <%= f.text_field :youtube_url, :size => 140 %>
+  </div>
+
+  <div class='form-group'>
+  <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+      <div class='form-check'>
+          <%= tag.label class: 'form-check-label' do %>
+              <%= tag.check_box class: 'form-check-input' %>
+              <%= tag.text %>
+          <% end %>
+      </div>
+  <% end %>
+  </div>
+
+  <%= f.submit "投稿する" %>
+
+<% end %>
+
+<%= link_to "一覧に戻る", tweets_path %>
