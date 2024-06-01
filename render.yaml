@@ -1,0 +1,21 @@
+databases:
+  - name: airplane_accident_DB
+    databaseName: airplane_accident_db
+    user: airplane_accident
+    region: singapore
+
+services:
+  - type: web
+    name: airplane_accident
+    env: ruby
+    region: singapore
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: postgres://airplane_accident_db_user:OetOY999YLhHXSTdtYj6yRg4fErSgBMS@dpg-cpdl2stds78s73ekd64g-a/airplane_accident_db
+        fromDatabase:
+          name: airplane_accident_DB
+          property: connectionString
+      - key: 1d03257930b66f88f59eb8dbb1897973
+        sync: false
