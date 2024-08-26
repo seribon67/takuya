@@ -1,3 +1,240 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.mypage h1{
+    padding: 0.5em;/*文字周りの余白*/
+    color: #010101;/*文字色*/
+    background: #eaf3ff;/*背景色*/
+    border-bottom: solid 3px #516ab6;/*下線*/
+    font-size: 35px;
+}
+
+.mypage{
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    opacity: 1;
+    z-index: -1;
+}
+
+.Polka3{
+    background-image: radial-gradient(#c8e1e8 2px, #ffffff 2px);
+    background-size: 20px 20px;
+}
+
+.infor{
+    position: relative;
+    margin: 100px;
+    padding: 40px;
+    border: solid 3px #95ccff;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.infor .box-title{
+    position: absolute;
+    display: inline-block;
+    top: -13px;
+    left: 10px;
+    padding: 0 9px;
+    line-height: 1;
+    font-size: 30px;
+    font-weight: bold;
+    background: #FFF;
+    color: #95ccff;
+    font-weight: bold;
+}
+
+.infor p{
+    position: relative;
+    list-style-type: none!important;/*ポチ消す*/
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    margin-bottom: 5px;
+    line-height: 1.5;
+    background: #dbebf8;
+    vertical-align: middle;
+    color: #505050;
+    border-radius: 15px 0px 0px 15px;/*左側の角丸く*/
+}
+
+.infor p:before{ 
+    display: inline-block; 
+    vertical-align: middle;
+    /*以下白丸つくる*/
+    content: '';
+    width: 1em;
+    height: 1em;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.mytitle{
+    font-size: 30px;
+    font-weight:bold;
+    color: #6594e0;/*文字色*/
+    /*線の種類（点線）2px 線色*/
+    border-bottom: dashed 2px #6594e0;
+    position: relative;
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.mydata{
+    text-align: right;
+    line-height: 40px;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.myabouts{
+    display: flex;
+}
+
+.myabouts li{
+    position: relative;
+    font-size: 18px;
+    list-style-type: none!important;/*ポチ消す*/
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    margin-bottom: 5px;
+    line-height: 1.5;
+    background: #dbebf8;
+    text-align: left;
+    margin: 20px;
+    width: 300px;
+    color: #505050;
+    border-radius: 15px 0px 0px 15px;/*左側の角丸く*/
+}
+
+.myabouts li:before{
+    display: inline-block; 
+    vertical-align: middle;
+    /*以下白丸つくる*/
+    content: '';
+    width: 1em;
+    height: 1em;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.col-11 {
+    display: inline-block;
+    width: 200px;
+    /* border: solid 1px; */
+}
+.col-21 {
+    display: inline-block;
+    width: 300px;
+    /* border: solid 1px; */
+}
+
+.myposts h2{
+    border-bottom: solid 3px #cce4ff;
+    position: relative;
+    margin:20px;
+    font-size: 28px;
+}
+
+.myposts h2:after{
+    position: absolute;
+    content: " ";
+    display: block;
+    border-bottom: solid 3px #5472cd;
+    bottom: -3px;
+    width: 20%;
+}
+
+.mydetail h31 {
+    position: relative;
+    display: inline-block;
+    padding: 0 55px;
+    font-size: 24px;
+    margin-left: 20px;
+}
+  
+
+.mydetail h31:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    width: 45px;
+    height: 2px;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    left:0;
+}
+
+.mydetail h31:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    width: 45px;
+    height: 2px;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    right: 0;
+}
+
+.mydetail li{
+    margin-left: 40px;
+    margin-right: 40px;
+    font-size: 18px;
+}
+
+.myimages h32{
+    position: relative;
+    display: inline-block;
+    padding: 0 55px;
+    font-size: 24px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.myimages h32:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    width: 45px;
+    height: 2px;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    left:0;
+}
+
+.myimages h32:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    width: 45px;
+    height: 2px;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+    right: 0;
+}
+
+.myimages p{
+    margin-left: 40px;
+}
+
+.mycreated{
+    text-align: right;
+    line-height: 40px;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+.myedit{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}

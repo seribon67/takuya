@@ -1,64 +1,97 @@
-<h1>飛行機事故</h1>
-<h3>一覧ページ</h3>
-<%= link_to "新規投稿へ", new_tweet_path %>
-<div class="tweets-container">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
-<% if user_signed_in? %>
-    <%= link_to "マイページへ", user_path(current_user.id) %>
-<% end %>
 
-  <% @tweets.each do |t| %>
-    <div class="tweet">
-      <%= image_tag t.image_url, size: "250x200" if t.image? %>
-      <%= image_tag t.image2_url, size: "250x200" if t.image2? %>
-      <%=  video_tag t.video_url ,:controls => true if t.video?%>
-      <% unless t.youtube_url.blank? %>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="index">
+  <section id="title">
+    <h2>安全な空の旅を― </h2>
+  </section>
+
+  <section id="prologue">
+    <h21>―prologue―</h21>
+    <h22>
+      <p>飛行機の事故率は<span style="color:red;">0.001％</span>。</p>
+      <p>この安全性を生み出しているのは、</p>
+      <p>過去の事故の教訓と反省。</p>
+      <p>事故を風化させず、</p>
+      <p>空の安全をこれからも守っていくために。</p>
+    </h22>
+  </section>
+
+  <h3> 記事一覧</h3>
+  <div class="bg_pettern Polka">
+      <p> <%= link_to "新規投稿はこちら", new_tweet_path, class:"new-posts" %> </p>
+    <div class="tweets-container">
+      <% @tweets.each do |t| %>
+        <div class="tweet">
+          <ul style = "list-style-type:none;">
+          <p> <%= link_to t.user.name, user_path(t.user.id),class:"user-name" %> </p>
+          <li> <%= link_to t.title, tweet_path(t.id), class:"title"%> </li>
+          <div class="data">
+            <p> <%= t.date %>@<%= t.place %> </p>
+          </div>
+          <div class="about">
+            <div class="abouts">
+              <li>
+                <span class="col-1">機種</span>
+                <span class="col-2"><%= t.model %></span>
+              </li>
+              <li>
+                <span class="col-1">会社</span>
+                <span class="col-2"><%= t.company %></span>
+              </li>
+              <li>
+                <span class="col-1">死傷者</span>
+                <span class="col-2"><%= t.people %>人</span>
+              </li>
+            </div>
+            <% if user_signed_in? %>
+              <% if current_user.already_liked?(t) %>
+                <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete, class:"star" do %>
+                  <i class="fa-sharp fa-solid fa-star"></i> <%= t.likes.count %>
+                <% end %>
+              <% else %>
+                <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post, class:"starstar" do %>
+                  <i class="fa-sharp fa-solid fa-star"></i><%= t.likes.count%>
+                <% end %>
+              <% end %>      
+            <% else %>
+              <i class="fa-sharp fa-solid fa-star"></i><%= t.likes.count %>
+            <% end %>
+
+            <% if user_signed_in? && current_user.id == t.user_id %>
+              <li> <%= link_to "編集する", edit_tweet_path(t.id),class:"edit" %>
+              <%= link_to "削除する", tweet_path(t.id), method: :delete, class:"edit" %> </li>
+            <% end %>
+            <li><%= t.created_at.strftime('%Y/%m/%d') %></li>
+          </div>
+        </div>
       <% end %>
-      </td>
-      <%= link_to t.user.name, user_path(t.user.id) %> 
-      <%= t.user.email %>
-      <%= t.title%>
-      <%= t.date %>
-      <%= t.place %>
-      <%= t.model %>
-      <%= t.company %>
-      <%= t.about %>
-      <%= t.people %>
-      <% if user_signed_in? %>
-      <% if current_user.already_liked?(t) %>
-          <%= button_to tweet_like_path(id: t.id, tweet_id: t.id), method: :delete do %>
-            <i class="far fa-heart"></i> <%= t.likes.count %>
-          <% end %>
-       <% else %>
-          <%= button_to tweet_likes_path(id: t.id, tweet_id: t.id), method: :post do %>
-            <i class="far fa-heart"></i><%= t.likes.count %>
-          <% end %>
-      <% end %>
-  <% else %>
-      <i class="far fa-heart"></i><%= t.likes.count %>
-  <% end %>
-      <%= t.created_at %>
-      <%= link_to "詳細へ", tweet_path(t.id) %>
-      <% if user_signed_in? && current_user.id == t.user_id %>
-      <%= link_to "編集する", edit_tweet_path(t.id) %>
-      <%= link_to "削除する", tweet_path(t.id), method: :delete %>
-    <% end %>
+
     </div>
+  </div>
 
-  <% end %>
+  <h4> タグ一覧 </h4>
+    <div class="Polka2">
+      <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
+      <div class="tagtag">
+        <% Tag.all.each do |t| %>
+          <div class="tags">
+            <%= check_box :tag_ids, t.name %><%= t.name %>
+          </div>
+        <% end %>
+      <br> <%= submit_tag '検索', class:"tag_click" %> </br>
+      </div>
+      <% end %>
 
-  <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
-    <% Tag.all.each do |t| %>
-        <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
-    <% end %>
-    <%= submit_tag '検索' %>
-<% end %>
-
-<%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
-  <%= text_field_tag :tag %>
-  <%= submit_tag 'タグを追加' %>
-<% end %>
 
 
+      <div class="tag">  
+        <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
+        <%= text_area_tag :tag, "", :size => "100" ,class:"tag_content"%>
+        <%= submit_tag 'タグを追加', class:"tag_add" %>
+        <% end %>
+      </div>
+    </div>
 </div>
